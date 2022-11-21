@@ -5,10 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -18,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dicoding.lathandasarcompose.ui.theme.LathanDasarComposeTheme
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 
 private val sampleName = listOf(
     "Andre",
@@ -43,6 +48,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
+    var isExpanded by remember { mutableStateOf(false) }
+
     Row(
         modifier = Modifier.padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -52,13 +59,19 @@ fun Greeting(name: String) {
             contentDescription = "Logo Jetpack Compose",
             modifier = Modifier.size(80.dp)
         )
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = "Hello $name!",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(text = "Welcome to Docding!")
+        }
+        IconButton(onClick = { isExpanded = !isExpanded }) {
+            Icon(
+                imageVector = if (isExpanded) Icons.Filled.ExpandLess else Icons.Outlined.ExpandMore,
+                contentDescription = if (isExpanded) "Show less" else "Show more"
+            )
         }
     }
 }
