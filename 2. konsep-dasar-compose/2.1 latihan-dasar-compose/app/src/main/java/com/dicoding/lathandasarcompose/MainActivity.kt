@@ -1,5 +1,6 @@
 package com.dicoding.lathandasarcompose
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.dicoding.lathandasarcompose.ui.theme.LathanDasarComposeTheme
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.text.font.FontStyle
 
 private val sampleName = listOf(
     "Andre",
@@ -37,7 +39,8 @@ private val sampleName = listOf(
     "Komeng",
     "Raffi Ahmad",
     "Andhika Pratama",
-    "Vincent Ryan Rompies"
+    "Vincent Ryan Rompies",
+    "Ganda Rain Panjaitan"
 )
 
 class MainActivity : ComponentActivity() {
@@ -62,28 +65,39 @@ fun Greeting(name: String) {
         )
     )
 
-    Row(
-        modifier = Modifier.padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        Image(
-            painter = painterResource(R.drawable.jetpack_compose),
-            contentDescription = "Logo Jetpack Compose",
-            modifier = Modifier.size(animatedSizeDp)
-        )
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = "Hello $name!",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
+    Card(
+        backgroundColor = MaterialTheme.colors.primary,
+        shape = MaterialTheme.shapes.medium,
+        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Image(
+                painter = painterResource(R.drawable.jetpack_compose),
+                contentDescription = "Logo Jetpack Compose",
+                modifier = Modifier.size(animatedSizeDp)
             )
-            Text(text = "Welcome to Docding!")
-        }
-        IconButton(onClick = { isExpanded = !isExpanded }) {
-            Icon(
-                imageVector = if (isExpanded) Icons.Filled.ExpandLess else Icons.Outlined.ExpandMore,
-                contentDescription = if (isExpanded) "Show less" else "Show more"
-            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = "Hello $name!",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "Welcome to Docding!",
+                    style = MaterialTheme.typography.body1.copy(
+                        fontStyle = FontStyle.Italic
+                    )
+                )
+            }
+            IconButton(onClick = { isExpanded = !isExpanded }) {
+                Icon(
+                    imageVector = if (isExpanded) Icons.Filled.ExpandLess else Icons.Outlined.ExpandMore,
+                    contentDescription = if (isExpanded) "Show less" else "Show more"
+                )
+            }
         }
     }
 }
@@ -99,6 +113,7 @@ fun HelloJetpackComposeApp() {
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL_4)
+@Preview(showBackground = true, device = Devices.PIXEL_4, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun DefaultPreview() {
     LathanDasarComposeTheme {
@@ -115,6 +130,8 @@ fun GreetingList(names: List<String>) {
             }
         }
     } else {
-        Text("No people to great :(")
+        Box(contentAlignment = Alignment.Center) {
+            Text("No people to great :(")
+        }
     }
 }
