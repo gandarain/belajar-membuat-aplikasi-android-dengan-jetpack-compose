@@ -17,10 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dicoding.jetcoffee.components.CategoryItem
-import com.dicoding.jetcoffee.components.MenuItem
-import com.dicoding.jetcoffee.components.SearchBar
-import com.dicoding.jetcoffee.components.SectionText
+import com.dicoding.jetcoffee.components.*
 import com.dicoding.jetcoffee.model.Menu
 import com.dicoding.jetcoffee.model.dummyBestSellerMenu
 import com.dicoding.jetcoffee.model.dummyCategory
@@ -95,11 +92,18 @@ fun CategoryRowPreview() {
 fun JetCoffeeApp() {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Banner()
-        SectionText(stringResource(R.string.section_category))
-        CategoryRow()
-        MenuRow(dummyMenu)
-        SectionText(stringResource(R.string.section_best_seller_menu))
-        MenuRow(dummyBestSellerMenu)
+        HomeSection(
+            title = stringResource(R.string.section_category),
+            content = { CategoryRow() }
+        )
+        HomeSection(
+            title = stringResource(R.string.menu_favorite),
+            content = { MenuRow(dummyMenu)}
+        )
+        HomeSection(
+            title = stringResource(R.string.section_best_seller_menu),
+            content = { MenuRow(dummyBestSellerMenu)}
+        )
     }
 }
 
