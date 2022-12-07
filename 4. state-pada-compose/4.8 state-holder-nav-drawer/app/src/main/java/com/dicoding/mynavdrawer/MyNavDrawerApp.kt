@@ -119,9 +119,8 @@ fun MyDrawerContent(
         }
         Divider()
     }
-//    BackHandler {
+
     BackPressHandler {
-        //do something
         onBackPress()
     }
 }
